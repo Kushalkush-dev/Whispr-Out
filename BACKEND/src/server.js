@@ -33,5 +33,5 @@ if(process.env.NODE_ENV=="production"){
 
 
 app.listen(PORT,(req,res)=>{
-  console.log(`Server is running on port http://localhost:3000`);
+  console.log(`Server is running on port ${PORT}`);
 })

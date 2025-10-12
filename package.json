@@ -17,9 +17,12 @@
   "keywords": [],
   "author": "",
   "license": "ISC",
-  "type": "commonjs",
+  "type": "module",
   "bugs": {
     "url": "https://github.com/Kushalkush-dev/Whispr-Out/issues"
   },
-  "homepage": "https://github.com/Kushalkush-dev/Whispr-Out#readme"
+  "homepage": "https://github.com/Kushalkush-dev/Whispr-Out#readme",
+  "dependencies": {
+    "resend": "^6.1.2"
+  }
 }

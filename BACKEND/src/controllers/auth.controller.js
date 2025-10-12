@@ -2,7 +2,6 @@ import mongoose from "mongoose";
 import User from "../Models/user.model.js";
 import bcrypt from "bcryptjs"
 import generateToken from "../lib/util.js";
-import e, { json } from "express";
 import { sendWelcomeEmail } from "../emails/emailHandler.js";
 import ENV from "../lib/env.js";
 

@@ -2,7 +2,7 @@ nodemodules
 node_modules
 
 env 
-env*
+env
 .env
-.env*
+.env.local
 

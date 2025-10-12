@@ -2,10 +2,15 @@ import mongoose from "mongoose";
 import User from "../Models/user.model.js";
 import bcrypt from "bcryptjs"
 import generateToken from "../lib/util.js";
+import e from "express";
+import { sendWelcomeEmail } from "../emails/emailHandler.js";
+import ENV from "../lib/env.js";
 
 export const signup=async(req,res)=>{
 
 const {fullname,email,password}=req.body;
+
+
 
 try {
   
@@ -56,8 +61,13 @@ try {
           profiepic:newUser.profiepic,     
          })
          
-  
-  
+  try {
+   await sendWelcomeEmail(savedUser.email,savedUser.fullname,ENV.CLIENT_URL)
+    
+  } catch (error) {
+    console.error("Error sending welcome email:", error);
+    
+  }
       }else{
         res.status(400).json({message:"Invalid User Data"})
       }

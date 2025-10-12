@@ -1,13 +1,15 @@
 import jwt from "jsonwebtoken";
+import ENV from "./env.js";
+import "dotenv/config"
 
 const generateToken=(userId,res)=>{
 
 
-  const {JWT_SECRET_KEY}=process.env
+  const {JWT_SECRET_KEY}=ENV
   if(!JWT_SECRET_KEY)throw new Error("JWT SECRETKEY NOT FOUND IN ENV")
   
 
-  const token =jwt.sign({userId:userId},process.env.JWT_SECRET_KEY,{
+  const token =jwt.sign({userId:userId},ENV.JWT_SECRET_KEY,{
     expiresIn:"7d",
   })
 

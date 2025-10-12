@@ -2,7 +2,7 @@ import mongoose from "mongoose";
 import User from "../Models/user.model.js";
 import bcrypt from "bcryptjs"
 import generateToken from "../lib/util.js";
-import e from "express";
+import e, { json } from "express";
 import { sendWelcomeEmail } from "../emails/emailHandler.js";
 import ENV from "../lib/env.js";
 
@@ -86,5 +86,48 @@ try {
 
 
 
+
+}
+
+
+
+export const login=async (req,res)=>{
+  const {email,password}=req.body;
+try {
+  const isUser= await User.findOne({
+    email
+  })
+
+  if(!isUser) return res.status(400).json({message:"INVAILD CREDENTIALS"})
+
+    const ispassword=await bcrypt.compare(password,isUser.password)
+
+    if(!ispassword)return res.status(400).json({message:"INVAILD CREDENTIALS"})
+
+    generateToken(isUser._id,res)
+
+    res.status(200).json({
+      _id:isUser._id,
+      fullname:isUser.fullname,
+      email:isUser.email,
+      profiepic:isUser.profiepic,
+    })
+  
+} catch (error) {
+  console.log("LOGIN ERROR (LOGIN CONTROLLER",error);
+
+  res.status(500).json({message:"INTERNAL SERVER ERROR"})
+  
+}
+
+
+
+}
+
+
+export const logout=async(_,res)=>{
+
+  res.cookie("jwt","",{maxAge:0})
+  res.status(400).json({message:"LOGGED OUT SUCCESSFULLY"})  
 
 }

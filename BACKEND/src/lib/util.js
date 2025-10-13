@@ -14,7 +14,7 @@ const generateToken=(userId,res)=>{
   })
 
   if(token){
-    res.cookie("jwt",token,{
+    res.cookie("jwttoken",token,{
       maxAge:7*24*60*60*1000,
       httpOnly:true,
       sameSite:"strict",

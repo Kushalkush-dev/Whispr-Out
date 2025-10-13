@@ -4,6 +4,7 @@ import bcrypt from "bcryptjs"
 import generateToken from "../lib/util.js";
 import { sendWelcomeEmail } from "../emails/emailHandler.js";
 import ENV from "../lib/env.js";
+import cloudinary from "../lib/cloudinary.js";
 
 export const signup=async(req,res)=>{
 
@@ -129,7 +130,42 @@ try {
 
 export const logout=async(_,res)=>{
 
-  res.cookie("jwt","",{maxAge:0})
+  res.cookie("jwttoken","",{maxAge:0})
   res.status(400).json({message:"LOGGED OUT SUCCESSFULLY"})  
+
+}
+
+
+
+export const profiepic=async(req,res)=>{
+  
+  const {profilepic}=req.body;
+  if(!profiepic) return res.status(400).json({message:"Profile Pic is required"})
+  try {
+    const userId=req.user._id;
+    if(!userId)return res.status(400).json({message:"User Not Found"})
+
+    const uploadResponse=await cloudinary.uploader.upload(profilepic,{
+      folder:"whisproutprofilepics"
+    })
+
+    if(!uploadResponse) return res.status(500).json({message:"Error in uploading image to cloudinary"})
+
+    const updatedUserProfile=await User.findByIdAndUpdate(userId,{
+      profiepic:uploadResponse.secure_url
+    },{new:true})
+
+    if(!updatedUserProfile) return res.status(500).json({message:"Error in upldaoing profile pic"})
+
+      res.status(200).json({
+        updatedUserProfile
+      })
+    
+  } catch (error) {
+    console.error("Error in profilePic Controller",error)
+    res.status(500).json({message:"INTERNAL SERVER ERROR"})
+  }
+
+
 
 }

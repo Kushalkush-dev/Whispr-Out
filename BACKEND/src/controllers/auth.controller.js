@@ -153,7 +153,7 @@ export const profiepic=async(req,res)=>{
 
     const updatedUserProfile=await User.findByIdAndUpdate(userId,{
       profiepic:uploadResponse.secure_url
-    },{new:true})
+    },{new:true}).select("-password")
 
     if(!updatedUserProfile) return res.status(500).json({message:"Error in upldaoing profile pic"})
 

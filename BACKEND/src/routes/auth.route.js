@@ -6,7 +6,7 @@ import { rateLimit } from "../middlewares/rateLimit.js";
 const router=express.Router()
 
 
-router.use(rateLimit)
+//router.use(rateLimit)
 
 // router.get("/test",(req,res)=>{
 //   res.status(200).json({message:"This is Rate Limit test route"})

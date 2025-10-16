@@ -90,3 +90,34 @@ export const sendMessage=async(req,res)=>{
   }
 
 }
+
+
+
+export const chatPage=async(req,res)=>{
+  try {
+    const loggedInUser=req.user._id;
+    const allMessage=await Message.find({
+      $or:[
+        {senderId:loggedInUser },
+        {receiverId:loggedInUser}
+      ]
+    })
+    if(!allMessage)return res.status(402).json("No Chats Found")
+
+
+      const chatPartnerIds=[...new Set(
+        allMessage.map((msg)=> 
+          msg.senderId.toString()===loggedInUser.toString() ? msg.receiverId.toString(): msg.senderId.toString() )
+        
+      ) ];
+      const Chatters=await User.find({_id:{$in:chatPartnerIds}}).select("-password");
+
+      res.status(200.).json(Chatters)
+
+
+  } catch (error) {
+    console.log("Error in Chatpage controller")
+    res.status(500).json({message:"Internal Server Error"})
+  }
+
+}

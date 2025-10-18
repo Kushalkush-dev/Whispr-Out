@@ -130,8 +130,18 @@ try {
 
 export const logout=async(_,res)=>{
 
-  res.cookie("jwttoken","",{maxAge:0})
-  res.status(400).json({message:"LOGGED OUT SUCCESSFULLY"})  
+  try {
+    res.cookie("jwttoken","",{
+            httpOnly:true,
+            sameSite:"strict",
+            secure:process.env.NODE_ENV==="development"?false:true,
+            maxAge:0})
+           res.status(200).json("LOGGED OUT SUCCESSFULLY")  
+    
+  } catch (error) {
+    console.log("Logout Failed",error)    
+  }
+
 
 }
 

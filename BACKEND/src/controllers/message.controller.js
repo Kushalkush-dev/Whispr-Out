@@ -102,7 +102,7 @@ export const chatPage=async(req,res)=>{
         {receiverId:loggedInUser}
       ]
     })
-    if(!allMessage)return res.status(402).json("No Chats Found")
+    if(!allMessage)return res.status(401).json("No Chats Found")
 
 
       const chatPartnerIds=[...new Set(

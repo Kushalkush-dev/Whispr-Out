@@ -14,6 +14,8 @@ import { data } from "react-router";
 
 
 
+
+
   checkLogin:async()=>{
     set({isloggin:true})
     try {
@@ -87,7 +89,11 @@ try {
 
 }
 
-  }
+  },
+
+
+
+ 
 
 })
 )

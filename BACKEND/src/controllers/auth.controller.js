@@ -58,7 +58,7 @@ try {
           _id:newUser._id,
           fullname:newUser.fullname,
           email:newUser.email,
-          profiepic:newUser.profiepic,     
+          profilepic:newUser.profilepic,     
          })
          
   try {
@@ -113,7 +113,7 @@ try {
       _id:isUser._id,
       fullname:isUser.fullname,
       email:isUser.email,
-      profiepic:isUser.profiepic,
+      profilepic:isUser.profilepic,
     })
   
 } catch (error) {
@@ -147,11 +147,28 @@ export const logout=async(_,res)=>{
 
 
 
-export const profiepic=async(req,res)=>{
+export const profilepic=async(req,res)=>{
   
-  const {profilepic}=req.body;
-  if(!profiepic) return res.status(400).json({message:"Profile Pic is required"})
   try {
+    
+    const {profilepic}=req.body;
+    if(!profilepic) return res.status(400).json({message:"Profile Pic is required"})
+  // ✅ Validate if the data is an image
+    if (!profilepic.startsWith("data:image/")) {
+      return res.status(400).json({ message: "Only image files are allowed!" });
+    }
+
+    // Optional: check specific types
+    const allowedTypes = ["image/jpeg", "image/png", "image/webp"];
+    const mimeType = profilepic.split(";")[0].split(":")[1];
+
+    if (!allowedTypes.includes(mimeType)) {
+      return res.status(400).json({ message: "Unsupported image type!" });
+    }
+
+
+
+
     const userId=req.user._id;
     if(!userId)return res.status(400).json({message:"User Not Found"})
 
@@ -162,14 +179,12 @@ export const profiepic=async(req,res)=>{
     if(!uploadResponse) return res.status(500).json({message:"Error in uploading image to cloudinary"})
 
     const updatedUserProfile=await User.findByIdAndUpdate(userId,{
-      profiepic:uploadResponse.secure_url
+      profilepic:uploadResponse.secure_url
     },{new:true}).select("-password")
 
     if(!updatedUserProfile) return res.status(500).json({message:"Error in upldaoing profile pic"})
 
-      res.status(200).json({
-        updatedUserProfile
-      })
+      res.status(200).json(updatedUserProfile)
     
   } catch (error) {
     console.error("Error in profilePic Controller",error)

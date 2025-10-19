@@ -93,6 +93,23 @@ try {
 
 
 
+  updateProfile:async(data)=>{
+    try {
+      const res=await axiosClient.put('/auth/updateprofile',data)
+     
+       set({loggedinUser:res.data})
+
+       
+      
+      toast.success("Profile Updated Successfully")
+              
+    } catch (error) {
+      console.log("Failed in Update Profile",error);
+      toast.error(error.response.data.message)
+      
+    }
+
+  }
  
 
 })

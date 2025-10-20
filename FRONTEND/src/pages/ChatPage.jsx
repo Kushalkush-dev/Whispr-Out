@@ -34,7 +34,7 @@ const ChatPage = () => {
 
             {activeTab === "contacts" && <ContactsList />}
           </div>
-
+ 
         </div>
 
         {/*right side*/}
@@ -42,7 +42,7 @@ const ChatPage = () => {
         <div className='flex-1 flex flex-col backdrop-blur-sm'>
 
           {selectedUser ? <ChatContainer /> : <NoConversationContainer />}
-          <NoConversationContainer />
+          
         </div>
 
 

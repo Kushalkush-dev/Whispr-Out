@@ -1,8 +1,15 @@
-import React from 'react'
+import React, { useEffect } from 'react'
+import useChatStore from '../store/useChatStore'
 
 const ChatContainer = () => {
-  return (
-    <div>ChatContainer</div>
+
+ const {selectedUser}= useChatStore()
+
+ 
+
+
+ return (
+  <div>{selectedUser.fullname}</div>
   )
 }
 

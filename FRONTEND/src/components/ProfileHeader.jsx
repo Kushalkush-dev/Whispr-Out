@@ -16,6 +16,8 @@ const inputFileRef=useRef(null)
 
 
 
+const mouseOnClickSound=new Audio("/sounds/MouseClickToggle.mp3")
+
 const handleImageSubmit=(e)=>{
 
   const image=e.target.files[0];
@@ -88,9 +90,15 @@ const handleImageSubmit=(e)=>{
 
 
     <div className='flex gap-4'>
-      <button onClick={logout}> <LogOut size={20}/>  </button>
+      <button onClick={logout} className='hover:text-slate-100 transition-colors' > <LogOut size={20}/>  </button>
 
-      <button onClick={toggleSound}> {isSoundEnabled ?<Volume2 size={20}/>:<VolumeOff size={20}/> }  </button>
+      <button onClick={()=>{
+
+        mouseOnClickSound.currentTime=0;
+        mouseOnClickSound.play().catch((error)=>console.log("Failed To Play Audio",error));
+        mouseOnClickSound.volume=.3
+        toggleSound()
+        }} className='hover:text-slate-200  transition-colors'>  {isSoundEnabled ?<Volume2 size={20}/>:<VolumeOff size={20}/> }  </button>
     </div>
 
 

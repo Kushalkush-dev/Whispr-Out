@@ -15,7 +15,7 @@ const App = () => {
   useEffect(()=>{
     
     checkLogin()
-  }, [])
+  }, [checkLogin])
 
   
   if(isloggin) return <Loader size={50} className='animate-spin'/>;

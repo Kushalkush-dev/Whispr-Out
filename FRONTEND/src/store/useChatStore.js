@@ -9,13 +9,15 @@ const useChatStore=create((set,get)=>({
 
   allContacts:[],
   chatPartners:[],
+
+
   
-  isSoundEnabled:localStorage.getItem("soundEnabled")==="true",
+  isSoundEnabled:JSON.parse(localStorage.getItem("soundEnabled"))===true,
 
 
   toggleSound:()=>{
+    localStorage.setItem("soundEnabled",!get().isSoundEnabled)
     set({isSoundEnabled: !get().isSoundEnabled})
-    localStorage.setItem("soundEnabled",isSoundEnabled)
   },
 
   toggleActiveTab:(tab)=>{
@@ -56,6 +58,8 @@ const useChatStore=create((set,get)=>({
        set({ischatPartnersLoading:false})
     }
   },  
+
+
 
 }))
 

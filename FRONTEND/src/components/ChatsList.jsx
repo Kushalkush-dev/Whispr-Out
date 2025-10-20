@@ -1,14 +1,15 @@
 import React, { useEffect } from 'react'
 import useChatStore from '../store/useChatStore'
+import LoadingUserSkeleton from './LoadingUserSkeleton'
 
 
 const ChatsList = () => {
-   const {  getChatPartners, chatPartners,setSelectedUser}= useChatStore()
-
+const {  getChatPartners, chatPartners,setSelectedUser,ischatPartnersLoading}= useChatStore()
   useEffect(()=>{
     getChatPartners()
   },[getChatPartners])
  
+  if(ischatPartnersLoading) return <LoadingUserSkeleton/>
 
   return (
  <div className='flex flex-col gap-2'>
@@ -20,7 +21,7 @@ const ChatsList = () => {
               <img src={`${user.profilepic ? user.profilepic : "/avatar.png"}`} alt="profilePic" />
             </div>
           </div>
-          <h2>{user.fullname}</h2>
+       <h2 className='font-medium text-md text-cyan-300  '>{user.fullname}</h2>
         </div>
         </div>
       ))}

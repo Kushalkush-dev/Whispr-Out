@@ -1,6 +1,7 @@
 import React, { useEffect } from 'react'
 import useChatStore from '../store/useChatStore'
 import LoadingUserSkeleton from './LoadingUserSkeleton'
+import NoChatsFound from './NoChatsFound'
 
 
 const ChatsList = () => {
@@ -10,6 +11,8 @@ const {  getChatPartners, chatPartners,setSelectedUser,ischatPartnersLoading}= u
   },[getChatPartners])
  
   if(ischatPartnersLoading) return <LoadingUserSkeleton/>
+
+  if(chatPartners.length==0) return <NoChatsFound/>
 
   return (
  <div className='flex flex-col gap-2'>

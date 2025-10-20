@@ -10,8 +10,8 @@ router.use(rateLimit,protectRoutes)
 
 router.get('/contacts',getAllContacts)
 router.get('/chat',chatPage)
-router.get("/getmessages/:id",getMessages)
-router.post("/send/:id",sendMessage)
+router.get('/getmessages/:id',getMessages)
+router.post('/send/:id',sendMessage)
 
 
 export default router

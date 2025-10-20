@@ -1,5 +1,6 @@
 import {create} from "zustand"
 import axiosClient from "../libs/axiosClient"
+import toast from "react-hot-toast"
 
 const useChatStore=create((set,get)=>({
 
@@ -10,6 +11,10 @@ const useChatStore=create((set,get)=>({
 
   allContacts:[],
   chatPartners:[],
+
+  Messages:[],
+
+  MessagesLoading:false,
 
 
   
@@ -60,6 +65,27 @@ const useChatStore=create((set,get)=>({
     }
   },  
 
+
+
+  getMessageByUser:async(userToChatId)=>{
+
+    set({MessagesLoading:true})
+
+    try {
+      const res=await axiosClient.get(`/message/getmessages/${userToChatId}`)
+
+      set({Messages:res.data})
+      
+    } catch (error) { 
+      console.log("Error fetching messages of the user");
+      toast.error(error.response.data.message)
+
+      
+    }finally{
+      set({MessagesLoading:false})
+    }
+
+  }
 
 
 }))

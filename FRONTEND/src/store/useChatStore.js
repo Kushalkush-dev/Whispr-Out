@@ -1,11 +1,12 @@
 import {create} from "zustand"
+import axiosClient from "../libs/axiosClient"
 
 const useChatStore=create((set,get)=>({
 
   isContactsLoading:false,
   ischatPartnersLoading:false,
   activeTab:"chats",
-  selectedUser:"",
+  selectedUser:'',
 
   allContacts:[],
   chatPartners:[],

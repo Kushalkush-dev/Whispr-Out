@@ -1,6 +1,7 @@
 import {create} from "zustand"
 import axiosClient from "../libs/axiosClient"
 import toast from "react-hot-toast"
+import { useAuthStore } from "./useAuthStore"
 
 const useChatStore=create((set,get)=>({
 
@@ -85,8 +86,41 @@ const useChatStore=create((set,get)=>({
       set({MessagesLoading:false})
     }
 
-  }
+  },
 
+
+  sendMessage:async(message)=>{
+    const tempId = `temp-${Date.now()}`;
+
+
+    const {Messages,selectedUser}=get()
+    const {loggedinUser}=useAuthStore.getState()
+    const instantMessage={
+      _id:tempId,
+      senderId:loggedinUser._id,
+      receiverId:selectedUser._id,
+      text:message.text,
+      image:message.image,
+      createdAt:new Date().toISOString
+    }
+
+    set({Messages:[...Messages,instantMessage]})
+
+    
+    
+    try {
+      const res=await axiosClient.post(`/message/send/${selectedUser._id}`,message) 
+      set({Messages:[...Messages,res.data]})
+      toast.success("Message sent")
+      
+    } catch (error) {  
+      console.log("Error Sending Messages",error);
+      toast.error(error.response.data.message)
+    }
+
+
+
+  }
 
 }))
 

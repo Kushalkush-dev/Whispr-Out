@@ -5,6 +5,7 @@ import useChatStore from '../store/useChatStore'
 import { useAuthStore } from '../store/useAuthStore'
 import MessageLoadingSkeleton from './MessageLoadingSkeleton'
 import NoChatHistory from './NoChatHistory'
+import ChatInput from './ChatInput'
 
 const ChatContainer = () => {
 
@@ -22,10 +23,11 @@ const ChatContainer = () => {
   return (
 
     <>
+    
       <ChatHeader />
 
 
-      <div className='overflow-y-auto p-4 py-8 px-6'>
+      <div className='overflow-y-auto h-full p-4 py-8 px-6'>
         {Messages.length > 0 && !MessagesLoading ? (
 
           <div className='max-w-3xl mx-auto space-y-6'>
@@ -33,12 +35,12 @@ const ChatContainer = () => {
 
 
 
-            {Messages.map((msg) => (
-              <div key={msg.senderId} className={` chat ${msg.senderId === loggedinUser._id ? "chat-end" : "chat-start"}`}>
+            {Messages.map((msg,idx) => (
+              <div key={idx} className={` chat ${msg.senderId === loggedinUser._id ? "chat-end" : "chat-start"}`}>
 
                 <div className='chat-image avatar'>
                   <div className='w-10 rounded-full'>
-                    <img src={msg.senderId === loggedinUser._id ? loggedinUser.profilepic : selectedUser.profilepic || "avatar.png"} alt="/avatar.png" />
+                    <img src={msg.senderId === loggedinUser._id ? loggedinUser.profilepic : selectedUser.profilepic || "/avatar.png"} alt="/avatar.png" />
                   </div>
                 </div>
 
@@ -64,6 +66,8 @@ const ChatContainer = () => {
         }
 
       </div>
+
+      <ChatInput/>
 
 
 

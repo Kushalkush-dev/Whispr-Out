@@ -25,6 +25,8 @@ const {sendMessage}=useChatStore();
       fileInput.current.value=""
     } catch (error) {
       console.log("Error in Sending",error)
+    }finally{
+      settext('')
     }
 
 
@@ -56,9 +58,9 @@ const {sendMessage}=useChatStore();
   }
 
   return (
-    <div className='fixed bottom-2 p-3 w-full '>
+    <div className='border-t bottom-0 border-t-slate-500  p-3 w-full '>
 
-    <div className='w-full bg-slate-/50 rounded-lg '>
+    <div className='w-full rounded-lg '>
       <form onSubmit={OnSend} className='p-2 flex items-center gap-4 ' >
 
         <input onChange={(e)=>settext(e.target.value)}

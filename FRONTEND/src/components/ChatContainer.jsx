@@ -1,5 +1,5 @@
 
-import { useEffect } from 'react'
+import { useEffect, useRef } from 'react'
 import ChatHeader from './ChatHeader'
 import useChatStore from '../store/useChatStore'
 import { useAuthStore } from '../store/useAuthStore'
@@ -11,13 +11,28 @@ const ChatContainer = () => {
 
   const { loggedinUser } = useAuthStore()
   const { selectedUser, getMessageByUser, Messages, MessagesLoading } = useChatStore()
+  const MessageEnd=useRef(null)
 
   useEffect(() => {
 
     getMessageByUser(selectedUser._id)
 
 
+
+
   }, [selectedUser])
+
+
+  useEffect(()=>{
+
+    if(MessageEnd.current){
+      MessageEnd.current.scrollIntoView({
+        behaviour:"smooth"
+      });
+    }
+
+
+  },[Messages])
 
 
   return (
@@ -44,7 +59,7 @@ const ChatContainer = () => {
                   </div>
                 </div>
 
-                <div className={`chat-bubble ${msg.senderId === loggedinUser._id ? "bg-emerald-400 text-slate-900 font-medium" : "bg-slate-500 text-white"} `}>
+                <div className={`chat-bubble ${msg.senderId === loggedinUser._id ? msg.image ?"bg-slate-700  text-white font-medium": "bg-emerald-400 text-slate-900 font-medium" : "bg-slate-500 text-white"} `}>
 
                   {msg.image && (
                     <img src={msg.image} alt="image" className='rounded-lg object-cover' />
@@ -52,18 +67,22 @@ const ChatContainer = () => {
 
                   {msg.text && (<p>{msg.text}</p>)}
 
-                  <p className='text-xs text-slate-800/70 font-medium mt-1'>{new Date(msg.createdAt).toLocaleTimeString(undefined, { hour: "2-digit", minute: "2-digit" })}</p>
+                  <p className={`text-xs  font-medium mt-1 ${msg.image ? "text-slate-300" :" text-slate-800/70"} `}>{new Date(msg.createdAt).toLocaleTimeString(undefined, { hour: "2-digit", minute: "2-digit" })}</p>
 
                 </div>
               </div>
 
             ))}
 
+            <div ref={MessageEnd}></div>
 
           </div>
 
+
         ) : MessagesLoading ? <MessageLoadingSkeleton /> : <NoChatHistory name={selectedUser.fullname} />
         }
+
+
 
       </div>
 

@@ -34,7 +34,7 @@ if(process.env.NODE_ENV=="production"){
   app.use(express.static(path.join(__dirname,"../FRONTEND/dist")))
 
   app.get("*",(_,res)=>{
-    res.sendFile(express.static(path.join(__dirname,"../FRONTEND","dist","index.html")))
+    res.sendFile(path.join(__dirname,"../FRONTEND","dist","index.html"))
   })
 }
 

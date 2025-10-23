@@ -101,7 +101,7 @@ const useChatStore=create((set,get)=>({
       receiverId:selectedUser._id,
       text:message.text,
       image:message.image,
-      createdAt:new Date().toISOString
+      createdAt:new Date().toISOString()
     }
 
     set({Messages:[...Messages,instantMessage]})
@@ -115,10 +115,11 @@ const useChatStore=create((set,get)=>({
       
     } catch (error) {  
       console.log("Error Sending Messages",error);
+      set({Messages:Messages})
       toast.error(error.response.data.message)
     }
 
-
+    
 
   }
 

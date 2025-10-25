@@ -148,7 +148,7 @@ const useChatStore = create((set, get) => ({
       set({Messages:[...currentMessages,newMessage]})
 
       if(isSoundEnabled){
-        const notificationSound=new Audio('/notification.mp3')
+        const notificationSound=new Audio('/sounds/notification.mp3')
         notificationSound.currentTime=0;
         notificationSound.play().catch((error)=>console.log("Error playing notification sound",error))
 

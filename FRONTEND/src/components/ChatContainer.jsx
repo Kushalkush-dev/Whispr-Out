@@ -18,7 +18,7 @@ const ChatContainer = () => {
     getMessageByUser(selectedUser._id)
 
     getSocketMessages()
-    
+
     return () => disconnectSocketMessage();
 
   }, [selectedUser,getMessageByUser,getSocketMessages,disconnectSocketMessage])
@@ -77,13 +77,13 @@ const ChatContainer = () => {
 
             ))}
 
-            <div ref={MessageEnd}></div>
 
           </div>
 
 
         ) : MessagesLoading ? <MessageLoadingSkeleton /> : <NoChatHistory name={selectedUser.fullname} />
         }
+      <div ref={MessageEnd}></div>
 
 
 

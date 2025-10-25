@@ -10,18 +10,21 @@ import ChatInput from './ChatInput'
 const ChatContainer = () => {
 
   const { loggedinUser } = useAuthStore()
-  const { selectedUser, getMessageByUser, Messages, MessagesLoading } = useChatStore()
+  const { selectedUser, getMessageByUser, Messages, MessagesLoading,getSocketMessages, disconnectSocketMessage} = useChatStore()
   const MessageEnd=useRef(null)
 
   useEffect(() => {
 
     getMessageByUser(selectedUser._id)
 
+    getSocketMessages()
+
+    return () => disconnectSocketMessage();
+
+  }, [selectedUser,getMessageByUser,getSocketMessages,disconnectSocketMessage])
 
 
-
-  }, [selectedUser])
-
+  
 
   useEffect(()=>{
 
@@ -74,13 +77,13 @@ const ChatContainer = () => {
 
             ))}
 
-            <div ref={MessageEnd}></div>
 
           </div>
 
 
         ) : MessagesLoading ? <MessageLoadingSkeleton /> : <NoChatHistory name={selectedUser.fullname} />
         }
+      <div ref={MessageEnd}></div>
 
 
 

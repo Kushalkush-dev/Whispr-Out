@@ -109,10 +109,10 @@ const ChatInput = () => {
               value={text}
               type="text"
               placeholder='Start the Chat . . .'
-              className='w-10/12 h-9 flex bg-slate-500/30 rounded-lg px-2
+              className='flex-1 h-9 bg-slate-500/30 rounded-lg px-2
          border-none outline-none focus:ring-2 focus:ring-teal-500/80 text-cyan-50' />
 
-            <div className='flex items-center gap-7'>
+            <div className='flex items-center gap-2 md:gap-7'>
 
               <div onClick={() => fileInput.current.click()} className='w-9 h-9 flex text-white/70 items-center rounded-lg justify-center bg-slate-500/30'>
                 <FileImage />

@@ -61,7 +61,7 @@ const handleImageSubmit=(e)=>{
 
   return (
    
- <div className="p-6 border-b border-slate-800">
+ <div className="p-4 md:p-6 border-b border-slate-800">
 
     <div className='flex justify-between gap-4'>
 

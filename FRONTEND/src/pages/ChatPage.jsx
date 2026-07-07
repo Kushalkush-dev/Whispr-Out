@@ -18,14 +18,12 @@ const ChatPage = () => {
 
 
   return (
-    <div className="relative w-full max-w-6xl h-[800px]">
+    <div className="relative w-full max-w-6xl h-[calc(100dvh-2rem)] md:h-[800px]">
 
       <BorderAnimatedContainer>
 
-
-
         {/*leftside*/}
-        <div className='md:w-80 flex flex-col bg-slate-600/50 backdrop-blur-sm'>
+        <div className={`${selectedUser ? 'hidden' : 'flex'} md:flex md:w-80 flex-col bg-slate-600/50 backdrop-blur-sm`}>
 
           <ProfileHeader />
           <ActiveTabSwitcher />
@@ -39,7 +37,7 @@ const ChatPage = () => {
 
         {/*right side*/}
 
-        <div className='flex-1 flex flex-col backdrop-blur-sm'>
+        <div className={`${!selectedUser ? 'hidden' : 'flex'} md:flex flex-1 flex-col backdrop-blur-sm`}>
 
           {selectedUser ? <ChatContainer /> : <NoConversationContainer />}
           

@@ -45,7 +45,7 @@ const ChatContainer = () => {
       <ChatHeader />
 
 
-      <div className='overflow-y-auto h-full p-4 py-8 px-6'>
+      <div className='overflow-y-auto h-full p-3 md:p-4 md:py-8 md:px-6'>
         {Messages.length > 0 && !MessagesLoading ? (
 
           <div className='max-w-3xl mx-auto space-y-6'>
